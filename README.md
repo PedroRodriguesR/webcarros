@@ -1,3 +1,7 @@
+# Projeto WebCarros
+
+Esse rpojeto tem por objetivo realizar a venda de carros de forma online. O projeto ainda está em desenvolvimento.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
