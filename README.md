@@ -1,6 +1,6 @@
 # Projeto WebCarros
 
-Esse rpojeto tem por objetivo realizar a venda de carros de forma online. O projeto ainda está em desenvolvimento.
+Esse projeto tem por objetivo realizar a venda de carros de forma online. O projeto ainda está em desenvolvimento.
 
 # React + TypeScript + Vite
 
