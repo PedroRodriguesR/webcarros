@@ -1,4 +1,3 @@
-
 import { Home } from './pages/home'
 import { Login } from './pages/login'
 import { Register } from './pages/register'
@@ -8,6 +7,7 @@ import { CarDetail } from './pages/car'
 
 import { Layout } from './components/layout'
 import { createBrowserRouter } from 'react-router'
+import { Private } from './routes/private'
 
 const router = createBrowserRouter([
   {
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard/>
+        element: <Private><Dashboard/></Private>
       },
       {
         path: "/dashboard/new",
-        element: <New/>
+        element: <Private><New/></Private>
       }
     ]
   },
