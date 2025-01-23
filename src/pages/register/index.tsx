@@ -1,5 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import logoImg from '../../assets/logo.svg'
+
+
+
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod';
@@ -7,9 +10,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { auth } from '../../services/firebaseConnection'
 import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth'
-import { Link, useNavigate } from 'react-router';
 import { Container } from '../../components/container/container';
+import { Link, useNavigate } from 'react-router';
 import { Input } from '../../components/input/input';
+import { AuthContext } from '../../contexts/authContext';
+
 
 const schema = z.object({
   name: z.string().nonempty("O campo nome é obrigatório"),
@@ -20,6 +25,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function Register() {
+  const { handleInfoUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -43,6 +50,12 @@ export function Register() {
         displayName: data.name
       })
 
+      handleInfoUser({
+        name: data.name,
+        email: data.email,
+        uid: user.user.uid
+      })
+      
       console.log("CADASTRADO COM SUCESSO!")
       navigate("/dashboard", { replace: true })
 
