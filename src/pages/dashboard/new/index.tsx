@@ -33,7 +33,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 
-interface ImageItemProps{
+interface ImageItemProps {
   uid: string;
   name: string;
   previewUrl: string;
@@ -50,13 +50,13 @@ export function New() {
   const [carImages, setCarImages] = useState<ImageItemProps[]>([])
 
 
-  async function handleFile(e: ChangeEvent<HTMLInputElement>){
-    if(e.target.files && e.target.files[0]){
+  async function handleFile(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.files && e.target.files[0]) {
       const image = e.target.files[0]
 
-      if(image.type === 'image/jpeg' || image.type === 'image/png'){
+      if (image.type === 'image/jpeg' || image.type === 'image/png') {
         await handleUpload(image)
-      }else{
+      } else {
         alert("Envie uma imagem jpeg ou png!")
         return;
       }
@@ -64,10 +64,10 @@ export function New() {
 
     }
   }
-  
-  
-  async function handleUpload(image: File){
-    if(!user?.uid){
+
+
+  async function handleUpload(image: File) {
+    if (!user?.uid) {
       return;
     }
 
@@ -77,7 +77,7 @@ export function New() {
     const uploadRef = ref(storage, `images/${currentUid}/${uidImage}`)
 
     uploadBytes(uploadRef, image)
-    .then((snapshot) => {
+      .then((snapshot) => {
         getDownloadURL(snapshot.ref).then((downloadUrl) => {
           const imageItem = {
             name: uidImage,
@@ -86,23 +86,23 @@ export function New() {
             url: downloadUrl,
           }
 
-          setCarImages((images) => [...images, imageItem] )
+          setCarImages((images) => [...images, imageItem])
 
 
         })
-    })
+      })
 
   }
 
-  function onSubmit(data: FormData){
+  function onSubmit(data: FormData) {
 
-    if(carImages.length === 0){
+    if (carImages.length === 0) {
       alert("Envie alguma imagem deste carro!")
       return;
     }
-    
-    const carListImages = carImages.map( car => {
-      return{
+
+    const carListImages = carImages.map(car => {
+      return {
         uid: car.uid,
         name: car.name,
         url: car.url
@@ -110,7 +110,7 @@ export function New() {
     })
 
     addDoc(collection(db, "cars"), {
-      name: data.name,
+      name: data.name.toUpperCase(),
       model: data.model,
       whatsapp: data.whatsapp,
       city: data.city,
@@ -123,28 +123,28 @@ export function New() {
       uid: user?.uid,
       images: carListImages,
     })
-    .then(() => {
-      reset();
-      setCarImages([]);
-      console.log("CADASTRADO COM SUCESSO!");
-    })
-    .catch((error) => {
-      console.log(error)
-      console.log("ERRO AO CADASTRAR NO BANCO")
-    })
+      .then(() => {
+        reset();
+        setCarImages([]);
+        console.log("CADASTRADO COM SUCESSO!");
+      })
+      .catch((error) => {
+        console.log(error)
+        console.log("ERRO AO CADASTRAR NO BANCO")
+      })
 
-    
+
   }
 
-  async function handleDeleteImage(item: ImageItemProps){
+  async function handleDeleteImage(item: ImageItemProps) {
     const imagePath = `images/${item.uid}/${item.name}`;
 
     const imageRef = ref(storage, imagePath);
 
-    try{
+    try {
       await deleteObject(imageRef)
       setCarImages(carImages.filter((car) => car.url !== item.url))
-    }catch(err){
+    } catch (err) {
       console.log("ERRO AO DELETAR")
     }
 
@@ -155,7 +155,7 @@ export function New() {
 
   return (
     <Container>
-      <DashboardHeader/>
+      <DashboardHeader />
 
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center gap-2">
         <button className="border-2 w-48 rounded-lg flex items-center justify-center cursor-pointer border-gray-600 h-32 md:w-48">
@@ -163,18 +163,18 @@ export function New() {
             <FiUpload size={30} color="#000" />
           </div>
           <div className="cursor-pointer">
-            <input 
-              type="file" 
-              accept="image/*" 
-              className="opacity-0 cursor-pointer" 
-              onChange={handleFile} 
+            <input
+              type="file"
+              accept="image/*"
+              className="opacity-0 cursor-pointer"
+              onChange={handleFile}
             />
           </div>
         </button>
 
-        {carImages.map( item => (
+        {carImages.map(item => (
           <div key={item.name} className="w-full h-32 flex items-center justify-center relative">
-            <button className="absolute" onClick={() => handleDeleteImage(item) }>
+            <button className="absolute" onClick={() => handleDeleteImage(item)}>
               <FiTrash size={28} color="#FFF" />
             </button>
             <img
@@ -189,7 +189,7 @@ export function New() {
       <div className="w-full bg-white p-3 rounded-lg flex flex-col sm:flex-row items-center gap-2 mt-2">
         <form
           className="w-full"
-          onSubmit={handleSubmit(onSubmit)}  
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="mb-3">
             <p className="mb-2 font-medium">Nome do carro</p>
