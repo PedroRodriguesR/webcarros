@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Container } from '../../components/container'
+
 import { FaWhatsapp } from 'react-icons/fa'
-import { useNavigate, useParams } from 'react-router-dom'
+
 
 import { getDoc, doc, } from 'firebase/firestore'
 import { db } from '../../services/firebaseConnection'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { useNavigate, useParams } from 'react-router'
+import { Container } from '../../components/container/container'
 
 interface CarProps {
   id: string;

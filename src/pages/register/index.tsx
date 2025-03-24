@@ -7,7 +7,7 @@ import logoImg from '../../assets/logo.svg'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
-
+import toast from 'react-hot-toast'
 import { auth } from '../../services/firebaseConnection'
 import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth'
 import { Container } from '../../components/container/container';
@@ -57,6 +57,7 @@ export function Register() {
       })
       
       console.log("CADASTRADO COM SUCESSO!")
+      toast.success("Bem vindo ao webcarros!")
       navigate("/dashboard", { replace: true })
 
     })
