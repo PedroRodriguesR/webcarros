@@ -31,6 +31,7 @@ interface ImageCarProps{
 export function Dashboard() {
   const [cars, setCars] = useState<CarProps[]>([]); 
   const { user } = useContext(AuthContext);
+  const [loadImg, setLoadImg] = useState<string[]>([])
 
   useEffect(() => {
 
@@ -92,12 +93,15 @@ export function Dashboard() {
     })
   }
 
+  function handleImageLoad(id: string){
+    setLoadImg((imgs)=> [...imgs, id])
+  }
 
   return (
     <Container>
       <DashboardHeader/>
 
-      <main className="grid gird-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
       {cars.map( car => (
         <section key={car.id} className="w-full bg-white rounded-lg relative">
@@ -108,10 +112,14 @@ export function Dashboard() {
             <FiTrash2 size={26} color="#000" />
           </button>
 
+          <div className={`bg-slate-200 w-full rounded-lg mb-2 h-72 ${loadImg.includes(car.id) ? "hidden" : ""}`} >
+          </div>
           <img
-            className="w-full rounded-lg mb-2 max-h-70"
+            className={`w-full rounded-lg mb-2 max-h-72 ${!loadImg.includes(car.id) ? "hidden" : "" }`}
             src={car.images[0].url}
+            onLoad={() => handleImageLoad(car.id)}              
           />
+
           <p className="font-bold mt-1 px-2 mb-2">{car.name}</p>
 
           <div className="flex flex-col px-2">
