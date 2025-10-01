@@ -8,6 +8,7 @@ import { CarDetail } from './pages/car'
 import { Layout } from './components/layout'
 import { createBrowserRouter } from 'react-router'
 import { Private } from './routes/private'
+import { NotFound } from './pages/notfound/notFound'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register/>
+  },
+  {
+    path: '*',
+    element: <NotFound/>
   }
 ])
 
