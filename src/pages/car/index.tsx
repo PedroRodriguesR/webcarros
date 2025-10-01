@@ -9,6 +9,7 @@ import { db } from '../../services/firebaseConnection'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useNavigate, useParams } from 'react-router'
 import { Container } from '../../components/container/container'
+import { Navigation, Pagination } from 'swiper/modules'
 
 interface CarProps {
   id: string;
@@ -103,15 +104,17 @@ export function CarDetail() {
 
       {car && (
         <Swiper
+          modules={[Navigation, Pagination]}
           slidesPerView={sliderPerView}
-          pagination={{ clickable: true }}
+          pagination={{  clickable: true }}
           navigation
-        >
+          style={{ '--swiper-navigation-color': '#222' } as React.CSSProperties}
+        >        
           {car?.images.map(image => (
             <SwiperSlide key={image.name}>
               <img
                 src={image.url}
-                className="w-full h-96 object-cover"
+                className="w-full h-96 object-cover" 
               />
             </SwiperSlide>
           ))}
@@ -154,7 +157,7 @@ export function CarDetail() {
           <p>{car?.whatsapp}</p>
 
           <a
-            href={`https://api.whatsapp.com/send?phone=${car?.whatsapp}&text=Olá vi esse ${car?.name} no site WebCarros e fique interessado!`}
+            href={`https://api.whatsapp.com/send?phone=${car?.whatsapp}&text=Olá! Vi esse ${car?.name} no site WebCarros e fiquei interessado!`}
             target="_blank"
             className="cursor-pointer bg-green-500 w-full text-white flex items-center justify-center gap-2 my-6 h-11 text-xl rounded-lg font-medium"
           >
