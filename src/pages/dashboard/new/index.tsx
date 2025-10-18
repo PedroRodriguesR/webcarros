@@ -147,6 +147,7 @@ export function New() {
     try {
       await deleteObject(imageRef)
       setCarImages(carImages.filter((car) => car.url !== item.url))
+      toast.success('Imagem deletada com sucesso.')
     } catch (err) {
       console.log("ERRO AO DELETAR")
     }

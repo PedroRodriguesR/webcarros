@@ -122,7 +122,7 @@ export function Home() {
         </button>
       </section>
 
-      <h1 className="font-bold text-center mt-6 text-2xl mb-4">
+      <h1 className="font-bold text-center mt-6 text-2xl mb-4 text-gray-800 ">
         Carros novos e usados em todo o Brasil
       </h1>
 
